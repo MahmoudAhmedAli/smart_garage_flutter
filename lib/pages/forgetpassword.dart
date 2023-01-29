@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,63 +55,36 @@ class _forgetpasswordState extends State<forgetpassword> {
                             prefixIcon: Icons.email,
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 60,
                           ),
-                          editText(context,
-                              controller: newpasswordtxt,
-                              ispassword: ispass,
-                              type: TextInputType.visiblePassword,
-                              text: "${getLang(context, "pass")}",
-                              prefixIcon: Icons.lock,
-                              suffixIcon: ispass
-                                  ? Icons.visibility
-                                  : Icons.visibility_off, function: () {
-                            setState(() {
-                              ispass = !ispass;
-                            });
-                            ;
-                          }),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          editText(context,
-                              controller: confpasswordtxt,
-                              ispassword: isconfpass,
-                              type: TextInputType.visiblePassword,
-                              text: "${getLang(context, "confpass")}",
-                              prefixIcon: Icons.lock,
-                              suffixIcon: isconfpass
-                                  ? Icons.visibility
-                                  : Icons.visibility_off, function: () {
-                            setState(() {
-                              isconfpass = !isconfpass;
-                            });
-                          }),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
+
                           button(
                             context: context,
                             text: "${getLang(context, "resetpass")}",
                             function: () {
                               if (formkey.currentState!.validate()) {
-                                Fluttertoast.showToast(
-                                    msg:
-                                        "${getLang(context, "Resetpasswordsuccessfully")}",
-                                    backgroundColor: Colors.green,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    textColor: Colors.white,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1);
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => login(),
-                                    ),
-                                    (route) => false);
+
+
+                                FirebaseAuth.instance.sendPasswordResetEmail(email: emailtext.text).then((value)
+                                {
+                                  Fluttertoast.showToast(
+                                      msg:
+                                      "${getLang(context, "checkemail")}",
+                                      backgroundColor: Colors.green,
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      textColor: Colors.white,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 1);
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => login(),
+                                      ),
+                                          (route) => false);
+                                }).catchError((error){
+                                  print(error.toString());
+                                });
+
                               }
                             },
                             fontsize: 25,

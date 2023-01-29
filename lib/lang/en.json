@@ -32,6 +32,8 @@
   "title": "Automated parking system (Smart garage)",
   "Letstarted":"Let's get started? ",
   "slotbooked": "This slot is already booked",
-  "cantempty":"can't be empty"
+  "cantempty":"can't be empty" ,
+  "loginfailed" : "Login Failed" ,
+  "checkemail" : "Check your email"
 
 }

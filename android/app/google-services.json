@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1040240890401",
+    "firebase_url": "https://smartgarage-a1f88-default-rtdb.firebaseio.com",
+    "project_id": "smartgarage-a1f88",
+    "storage_bucket": "smartgarage-a1f88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040240890401:android:353570e144fa80732b8960",
+        "android_client_info": {
+          "package_name": "com.example.graduation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040240890401-udacp6d80cqj4cktbr9sulra32d81a7f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.graduation",
+            "certificate_hash": "151c810dc4407a3bbd8c7935f9fb16e9ffda068f"
+          }
+        },
+        {
+          "client_id": "1040240890401-vst2bvdqquq0g255ov8dgmpelouncecf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZN3AOPYbPHV4LayMiMFmHcgEyJpd1LmI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1040240890401-vst2bvdqquq0g255ov8dgmpelouncecf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

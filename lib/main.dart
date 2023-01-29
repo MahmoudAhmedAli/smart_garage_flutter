@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:graduation/bloc/cubit.dart';
 import 'package:graduation/bloc/states.dart';
 import 'package:graduation/languages/locale.dart';
+import 'package:graduation/pages/forgetpassword.dart';
 import 'package:graduation/pages/getstarted.dart';
 import 'package:graduation/pages/homepage.dart';
 import 'package:graduation/pages/login.dart';
@@ -17,6 +19,7 @@ void main() async {
       statusBarIconBrightness: Brightness.light
   ));
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await sharedprefs.init();
   bool isgetstarted = sharedprefs.getdata(key: "getstarted");
   bool islogin = sharedprefs.getdata(key: "login");
@@ -53,7 +56,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
 
             debugShowCheckedModeBanner: false,
-            home: start ,
+            ////////////////////////////////////////////////////////////////////////////////
+            home: forgetpassword() ,
             localizationsDelegates: [
               AppLocale.delegate ,
               GlobalMaterialLocalizations.delegate ,

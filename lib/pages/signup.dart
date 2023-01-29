@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -106,28 +107,21 @@ bool isconfpass = true ;
                             SizedBox(
                               height: 30,
                             ),
-                            button(
-                                context: context,
-                                text: "${getLang(context, "signup")}",
-                                function: () {
-                                  if(formkey.currentState!.validate())
-                                  {
-                                    Fluttertoast.showToast(
-                                        msg: "${getLang(context, "createsuccessfully")}",
-                                        backgroundColor: Colors.green,
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        textColor: Colors.white,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1);
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => login(),
-                                        ),
-                                            (route) => false);
-                                  }
-                                },
-                                fontsize: 25),
+                            ConditionalBuilder(
+                              condition: state is! signuploadingstate,
+                                builder: (context)=>button(
+                                    context: context,
+                                    text: "${getLang(context, "signup")}",
+                                    function: () {
+                                      if(formkey.currentState!.validate())
+                                      {
+
+
+                                        cubit.get(context).register(email: emailtext.text, password: passwordtxt.text , phone: phonetxt.text , name: nametext.text );
+                                      }
+                                    },
+                                    fontsize: 25),
+                            fallback: (context)=>Center(child: CircularProgressIndicator()),) ,
                             SizedBox(
                               height: 10,
                             ),
@@ -167,7 +161,22 @@ bool isconfpass = true ;
           ) ;
         },
         listener: (context, state) {
-
+if (state is signupsuccessstate)
+  {
+    Fluttertoast.showToast(
+        msg: "${getLang(context, "createsuccessfully")}",
+        backgroundColor: Colors.green,
+        toastLength: Toast.LENGTH_SHORT,
+        textColor: Colors.white,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => login(),
+        ),
+            (route) => false);
+  }
         },);
   }
 }

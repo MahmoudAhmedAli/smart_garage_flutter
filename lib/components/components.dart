@@ -200,6 +200,7 @@ Widget editText(
         },
         keyboardType: type,
         obscureText: ispassword,
+
         decoration: InputDecoration(
           labelText: text,
           prefixIcon: Icon(

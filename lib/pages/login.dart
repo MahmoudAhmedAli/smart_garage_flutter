@@ -1,3 +1,4 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,22 +83,27 @@ bool ispass = true ;
                                 ),) ,
                             ) ,
                             SizedBox(height: 30,),
-                            button(context: context, text: "${getLang(context, "login")}",
-                                function: (){
-                              sharedprefs.savedata(key: "login", value: true) ;
+                            ConditionalBuilder(
+                              condition: state is! loginloadingstate,
+                              builder:(context)=>button(context: context, text: "${getLang(context, "login")}",
+                                  function: (){
+                                    sharedprefs.savedata(key: "login", value: true) ;
 
-                              if(formkey.currentState!.validate())
-                              {
-                                Fluttertoast.showToast(
-                                    msg: "${getLang(context, "loginsuccessfully")}",
-                                    backgroundColor: Colors.green,
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    textColor: Colors.white,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1);
-                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>homepage()), (route) => false);
-                              }
-                            } , fontsize: 25) ,
+                                    if(formkey.currentState!.validate())
+                                    {
+                                      //   Fluttertoast.showToast(
+                                      //       msg: "${getLang(context, "loginsuccessfully")}",
+                                      //       backgroundColor: Colors.green,
+                                      //       toastLength: Toast.LENGTH_SHORT,
+                                      //       textColor: Colors.white,
+                                      //       gravity: ToastGravity.BOTTOM,
+                                      //       timeInSecForIosWeb: 1);
+                                      //   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>homepage()), (route) => false);
+                                      cubit.get(context).login(email: emailtext.text, password: passwordtxt.text);
+                                    }
+                                  } , fontsize: 25),
+                              fallback: (context)=>Center(child: CircularProgressIndicator()),
+                            ) ,
                             SizedBox(height: 20,) ,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -131,6 +137,31 @@ bool ispass = true ;
           ) ;
         },
         listener: (context, state) {
+          if (state is loginsuccessstate)
+          {
+            Fluttertoast.showToast(
+                msg: "${getLang(context, "loginsuccessfully")}",
+                backgroundColor: Colors.green,
+                toastLength: Toast.LENGTH_SHORT,
+                textColor: Colors.white,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1);
+            Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => homepage(),
+                ),
+                    (route) => false);
+          }else if(state is loginerrorstate)
+            {
+              Fluttertoast.showToast(
+                  msg: "${getLang(context, "loginfailed")}",
+                  backgroundColor: Colors.red,
+                  toastLength: Toast.LENGTH_SHORT,
+                  textColor: Colors.white,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1);
+            }
 
         },);
   }
