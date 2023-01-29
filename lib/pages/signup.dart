@@ -116,7 +116,6 @@ bool isconfpass = true ;
                                       if(formkey.currentState!.validate())
                                       {
 
-
                                         cubit.get(context).register(email: emailtext.text, password: passwordtxt.text , phone: phonetxt.text , name: nametext.text );
                                       }
                                     },

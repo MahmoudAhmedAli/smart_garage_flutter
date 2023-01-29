@@ -19,7 +19,7 @@ Widget topContainer(context , {required bool showmenu}) {
               Icons.settings
             ),
             SizedBox(width: 10,) ,
-            Text("Settings")
+            Text("${getLang(context, "settings")}")
           ],
         ),
     ),
@@ -33,7 +33,7 @@ Widget topContainer(context , {required bool showmenu}) {
                 Icons.logout
             ),
             SizedBox(width: 10,) ,
-            Text("Logout")
+            Text("${getLang(context, "logout")}")
           ],
         ),
       ),

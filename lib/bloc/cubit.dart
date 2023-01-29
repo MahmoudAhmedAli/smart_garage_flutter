@@ -55,13 +55,16 @@ class cubit extends Cubit<states> {
     FirebaseFirestore.instance
         .collection("users")
         .doc(id)
-        .set(model.tomap()).then((value) {
+        .set(model.tomap())
+        .then((value) {
       emit(createusersuccessstate());
     }).catchError((error) {
       print(error.toString());
       emit(createusererrorstate());
     });
   }
+
+  void getUser() {}
 
   void login({
     required String email,
@@ -73,6 +76,16 @@ class cubit extends Cubit<states> {
         .then((value) {
       print(value.user!.email);
       print(value.user!.uid);
+      FirebaseFirestore.instance
+          .collection("users")
+          .doc(value.user!.uid)
+          .get()
+          .then((value) {
+        print(value.data());
+      }).catchError((error) {
+        print(error.toString());
+      });
+
       emit(loginsuccessstate());
     }).catchError((error) {
       print(error.toString());
