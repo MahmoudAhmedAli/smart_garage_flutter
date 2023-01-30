@@ -13,7 +13,7 @@ class homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) => cubit(),
+        create: (BuildContext context) => cubit()..getUser(),
     child: BlocConsumer<cubit , states>(
         builder: (context , state)
         {

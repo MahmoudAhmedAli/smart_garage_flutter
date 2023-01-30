@@ -8,6 +8,7 @@ import 'package:graduation/bloc/cubit.dart';
 import 'package:graduation/bloc/states.dart';
 import 'package:graduation/components/components.dart';
 import 'package:graduation/languages/locale.dart';
+import 'package:graduation/pages/homepage.dart';
 import 'package:graduation/pages/settings.dart';
 import 'package:graduation/shared.dart';
 import 'package:graduation/sharedprefrences/sharedprefrences.dart';
@@ -100,7 +101,7 @@ class update extends StatelessWidget {
             Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => settings(),
+                  builder: (context) => homepage(),
                 ),
                     (route) => false);
           }else if(state is updateerrorstate)

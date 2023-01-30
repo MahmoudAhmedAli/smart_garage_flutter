@@ -15,7 +15,7 @@ class settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => cubit()..getUser(),
+      create: (BuildContext context) => cubit(),
       child: BlocConsumer<cubit, states>(
         builder: (context, state) {
           return Scaffold(

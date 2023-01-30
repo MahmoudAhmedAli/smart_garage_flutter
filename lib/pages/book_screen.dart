@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/bloc/cubit.dart';
 import 'package:graduation/bloc/states.dart';
 import 'package:graduation/components/components.dart';
 import 'package:graduation/languages/locale.dart';
+import 'package:graduation/shared.dart';
+import 'package:graduation/sharedprefrences/sharedprefrences.dart';
 
 class BookScreen extends StatelessWidget {
   final String location;
@@ -59,7 +62,7 @@ class BookScreen extends StatelessWidget {
                                               width: 10,
                                             ),
                                             Text(
-                                              "${getLang(context, "name")}" ,
+                                              "${getLang(context, "name")}",
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.bold),
@@ -69,7 +72,7 @@ class BookScreen extends StatelessWidget {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                'Mohamed sobhy',
+                                                "${name}",
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.bold,
@@ -88,7 +91,7 @@ class BookScreen extends StatelessWidget {
                                               width: 10,
                                             ),
                                             Text(
-                                              "${getLang(context, "location")}" ,
+                                              "${getLang(context, "location")}",
                                               style: TextStyle(
                                                   fontSize: 25,
                                                   fontWeight: FontWeight.bold),
@@ -115,7 +118,7 @@ class BookScreen extends StatelessWidget {
                                               width: 10,
                                             ),
                                             Text(
-                                              "${getLang(context, "time")}" ,
+                                              "${getLang(context, "time")}",
                                               style: TextStyle(
                                                   fontSize: 25,
                                                   fontWeight: FontWeight.bold),
@@ -170,7 +173,7 @@ class BookScreen extends StatelessWidget {
                                               width: 10,
                                             ),
                                             Text(
-                                              "${getLang(context, "total")}" ,
+                                              "${getLang(context, "total")}",
                                               style: TextStyle(
                                                   fontSize: 25,
                                                   fontWeight: FontWeight.bold),
@@ -179,7 +182,7 @@ class BookScreen extends StatelessWidget {
                                               width: 10,
                                             ),
                                             Text(
-                                              '${cubit.get(context).counter*5}\$',
+                                              '${cubit.get(context).counter * 5}\$',
                                               style: TextStyle(
                                                   fontSize: 25,
                                                   fontWeight: FontWeight.bold,
@@ -207,7 +210,6 @@ class BookScreen extends StatelessWidget {
                                                 color: Colors.grey[600],
                                                 fontWeight: FontWeight.bold),
                                           ),
-
                                         ],
                                       )),
                                       Expanded(
@@ -219,7 +221,7 @@ class BookScreen extends StatelessWidget {
                                             width: 10,
                                           ),
                                           Text(
-                                              "${getLang(context, "payment")}" ,
+                                            "${getLang(context, "payment")}",
                                             style: TextStyle(
                                                 fontSize: 25,
                                                 fontWeight: FontWeight.bold),
