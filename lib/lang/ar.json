@@ -35,5 +35,11 @@
   "cantempty":" لا يمكن ان يكون خالي" ,
   "loginfailed" : "فشل تسجيل الدخول" ,
   "checkemail" : "افحص بريدك الالكتروني" ,
-  "heo" : "sadnsa"
+  "updatefail" : "فشل التحديث" ,
+  "updatesuccess" : "تم التحديث" ,
+  "edit" : "تعديل" ,
+  "update" : "تحديث" ,
+  "passowdsnotthesame" : " الرقم السري ليس متطابق"
+
+
 }

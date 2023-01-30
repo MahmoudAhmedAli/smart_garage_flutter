@@ -7,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/bloc/states.dart';
 import 'package:graduation/models/user_model.dart';
+import 'package:graduation/shared.dart';
+import 'package:graduation/sharedprefrences/sharedprefrences.dart';
 
 class cubit extends Cubit<states> {
   cubit() : super(initialstate());
 
   static cubit get(context) => BlocProvider.of(context);
   int counter = 1;
-
+  userModel? model ;
   void register({
     required String email,
     required String password,
@@ -35,7 +37,7 @@ class cubit extends Cubit<states> {
       emit(signupsuccessstate());
     }).catchError((error) {
       print(error.toString());
-      emit(signuperrorstate());
+      emit(signuperrorstate(error.toString()));
     });
   }
 
@@ -45,7 +47,7 @@ class cubit extends Cubit<states> {
     required String id,
     required String? email,
   }) {
-    userModel model = userModel(
+     model = userModel(
       email: email,
       id: id,
       name: name,
@@ -55,7 +57,7 @@ class cubit extends Cubit<states> {
     FirebaseFirestore.instance
         .collection("users")
         .doc(id)
-        .set(model.tomap())
+        .set(model!.tomap())
         .then((value) {
       emit(createusersuccessstate());
     }).catchError((error) {
@@ -64,8 +66,51 @@ class cubit extends Cubit<states> {
     });
   }
 
-  void getUser() {}
+  void getUser() {
+    emit(getuserloadingstate());
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(sharedprefs.getdata(key: "UID"))
+        .get()
+        .then((value) {
+          name = value.data()!['name'];
+      phone = value.data()!['phone'];
+      email = value.data()!['email'];
+      print(name);
+      print(phone);
+      print(sharedprefs.getdata(key: "UID"));
+      emit(getusersuccessstate());
+    }).catchError((error) {
+      print(error.toString());
+      emit(getusererrorstate());
+    });
 
+  }
+
+  void update(
+  {
+  required String namee ,
+  required String phonee,
+}
+      )
+  {
+    emit(updateloadingstate());
+    FirebaseFirestore.instance.collection("users").doc(sharedprefs.getdata(key: "UID")).update(
+        {
+          "name" : namee,
+          "phone" : phonee,
+        }
+    ).then((value)
+    {
+      print("ok");
+      emit(updatesuccessstate());
+
+    }).catchError((error)
+    {
+      print(error.toString());
+      emit(updateerrorstate());
+    });
+  }
   void login({
     required String email,
     required String password,
@@ -74,17 +119,9 @@ class cubit extends Cubit<states> {
     FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password)
         .then((value) {
+      sharedprefs.savedata(key: "UID", value: value.user!.uid) ;
       print(value.user!.email);
       print(value.user!.uid);
-      FirebaseFirestore.instance
-          .collection("users")
-          .doc(value.user!.uid)
-          .get()
-          .then((value) {
-        print(value.data());
-      }).catchError((error) {
-        print(error.toString());
-      });
 
       emit(loginsuccessstate());
     }).catchError((error) {

@@ -72,6 +72,8 @@ Widget topContainer(context , {required bool showmenu}) {
           {
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>login()), (route) => false);
             sharedprefs.removedata(key: "login") ;
+            sharedprefs.removedata(key: "UID") ;
+
           }
         else if(value==0)
           {
@@ -192,6 +194,7 @@ Widget editText(
           ]),
       child: TextFormField(
         controller: controller,
+
         validator: (value) {
           if (value!.isEmpty) {
             return "${text + getLang(context, 'cantempty')}";

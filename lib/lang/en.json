@@ -34,5 +34,10 @@
   "slotbooked": "This slot is already booked",
   "cantempty":"can't be empty" ,
   "loginfailed" : "Login Failed" ,
-  "checkemail" : "Check your email"
+  "checkemail" : "Check your email" ,
+  "updatefail" : "Update fail" ,
+  "updatesuccess" : "Update Successfully" ,
+  "edit" : "Edit" ,
+  "update" : "Update" ,
+  "passowdsnotthesame" : "Passwords aren't the same"
 }

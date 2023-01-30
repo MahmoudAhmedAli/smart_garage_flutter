@@ -115,8 +115,19 @@ bool isconfpass = true ;
                                     function: () {
                                       if(formkey.currentState!.validate())
                                       {
-
-                                        cubit.get(context).register(email: emailtext.text, password: passwordtxt.text , phone: phonetxt.text , name: nametext.text );
+                                       if(passwordtxt.text==confpasswordtxt.text)
+                                         {
+                                           cubit.get(context).register(email: emailtext.text, password: passwordtxt.text , phone: phonetxt.text , name: nametext.text );
+                                         }else
+                                           {
+                                             Fluttertoast.showToast(
+                                                 msg: "${getLang(context, "passowdsnotthesame")}",
+                                                 backgroundColor: Colors.red,
+                                                 toastLength: Toast.LENGTH_SHORT,
+                                                 textColor: Colors.white,
+                                                 gravity: ToastGravity.BOTTOM,
+                                                 timeInSecForIosWeb: 1);
+                                           }
                                       }
                                     },
                                     fontsize: 25),
@@ -175,7 +186,16 @@ if (state is signupsuccessstate)
           builder: (context) => login(),
         ),
             (route) => false);
-  }
+  }else if(state is signuperrorstate)
+    {
+      Fluttertoast.showToast(
+          msg: state.error.toString(),
+          backgroundColor: Colors.red,
+          toastLength: Toast.LENGTH_SHORT,
+          textColor: Colors.white,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1);
+    }
         },);
   }
 }
